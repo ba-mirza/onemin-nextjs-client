@@ -8,14 +8,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#B80000"
-      },
-      fontFamily: {
-        sans: ["Roboto Condensed", "sans-serif"]
+        primary: "var(--color-primary)"
       }
     },
   },
   plugins: [],
 }
+
 export default config
 
