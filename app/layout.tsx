@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import { Roboto_Condensed } from "next/font/google"
 import "./globals.css"
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
+import Header from "@/app/components/Header"
+import Footer from "@/app/components/Footer"
 
 const robotoCondensed = Roboto_Condensed({
   variable: "--font-sans",
