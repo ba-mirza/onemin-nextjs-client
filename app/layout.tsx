@@ -26,8 +26,8 @@ export default function RootLayout({
         <Header />
         <main className="max-w-6xl mx-auto px-4 py-10">{children}</main>
         <Footer />
-      </body>
-    </html>
+      </ body>
+    </ html>
   )
 }
 
