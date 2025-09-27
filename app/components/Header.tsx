@@ -1,9 +1,9 @@
 const navItems = [
-  { label: "САЯСАТ", href: "#" },
-  { label: "ӘЛЕМ", href: "#" },
-  { label: "ДІН", href: "#" },
-  { label: "СҰХБАТ", href: "#" },
-  { label: "САРАПТАМА", href: "#" },
+  { label: "САЯСАТ", href: "/list/sayasat" },
+  { label: "ӘЛЕМ", href: "/list/elem" },
+  { label: "ДІН", href: "/list/din" },
+  { label: "СҰХБАТ", href: "/list/suhbat" },
+  { label: "САРАПТАМА", href: "/list/saraptama" },
 ]
 
 export default function Header() {
