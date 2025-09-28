@@ -2,14 +2,22 @@ import NewsCard from "@/app/components/NewsCard"
 
 export default function Home() {
   const news = [
-    { title: "Big H1 Text", description: "Мәжіліс депутаты Нартай Аралбайұлы жаңа қызметке тағайындалды" },
-    { title: "H2 Text", description: "Мәжіліс депутаты Нартай Аралбайұлы жаңа қызметке тағайындалды" },
-    { title: "H2 Text", description: "Мәжіліс депутаты Нартай Аралбайұлы жаңа қызметке тағайындалды" },
-    { title: "Politics", description: "Мәжіліс депутаты Нартай Аралбайұлы жаңа қызметке тағайындалды" },
-    { title: "World", description: "Мәжіліс депутаты Нартай Аралбайұлы жаңа қызметке тағайындалды" },
-    { title: "Religion", description: "Мәжіліс депутаты Нартай Аралбайұлы жаңа қызметке тағайындалды" },
-    { title: "Interview", description: "Мәжіліс депутаты Нартай Аралбайұлы жаңа қызметке тағайындалды" },
-    { title: "Analytics", description: "Мәжіліс депутаты Нартай Аралбайұлы жаңа қызметке тағайындалды" },
+    { title: "Big H1 Text", description: "Мәжіліс депутаты Нартай Аралбайұлы жаңа қызметке тағайындалды" ,
+     date: "27.08.2025", views: 5900},
+    { title: "H2 Text", description: "Мәжіліс депутаты Нартай Аралбайұлы жаңа қызметке тағайындалды" ,
+     date: "27.08.2025", views: 5900},
+    { title: "H2 Text", description: "Мәжіліс депутаты Нартай Аралбайұлы жаңа қызметке тағайындалды" ,
+     date: "27.08.2025", views: 5900},
+    { title: "Politics", description: "Мәжіліс депутаты Нартай Аралбайұлы жаңа қызметке тағайындалды" ,
+     date: "27.08.2025", views: 5900},
+    { title: "World", description: "Мәжіліс депутаты Нартай Аралбайұлы жаңа қызметке тағайындалды" ,
+     date: "27.08.2025", views: 5900},
+    { title: "Religion", description: "Мәжіліс депутаты Нартай Аралбайұлы жаңа қызметке тағайындалды" ,
+     date: "27.08.2025", views: 5900},
+    { title: "Interview", description: "Мәжіліс депутаты Нартай Аралбайұлы жаңа қызметке тағайындалды" ,
+     date: "27.08.2025", views: 5900},
+    { title: "Analytics", description: "Мәжіліс депутаты Нартай Аралбайұлы жаңа қызметке тағайындалды" ,
+     date: "27.08.2025", views: 5900},
   ]
 
   return (
@@ -35,48 +43,48 @@ export default function Home() {
       {/* Жаңалықтар */}
       <h2 className="text-2xl font-bold mb-6">Жаңалықтар</ h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-10">
-        {news.slice(0, 4).map((item, index) => (
-          <NewsCard key={`politics-${index}`} title={item.title} description={item.description} />
+        {news.slice(3, 7).map((item, index) => (
+        <NewsCard key={index} title={item.title} description={item.description}date={item.date} views={item.views} />
         ))}
       </ div>
 
       {/* Саясат */}
       <h2 className="text-2xl font-bold mb-6">Саясат</ h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-10">
-        {news.slice(0, 4).map((item, index) => (
-          <NewsCard key={`politics-${index}`} title={item.title} description={item.description} />
+        {news.slice(3, 7).map((item, index) => (
+          <NewsCard key={index} title={item.title} description={item.description}date={item.date} views={item.views} />
         ))}
       </ div>
 
       {/* Әлем */}
       <h2 className="text-2xl font-bold mb-6">Әлем</ h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-10">
-        {news.slice(0, 4).map((item, index) => (
-          <NewsCard key={`world-${index}`} title={item.title} description={item.description} />
+        {news.slice(3, 7).map((item, index) => (
+          <NewsCard key={index} title={item.title} description={item.description}date={item.date} views={item.views} />
         ))}
       </ div>
 
       {/* Дін */}
       <h2 className="text-2xl font-bold mb-6">Дін</ h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-10">
-        {news.slice(0, 4).map((item, index) => (
-          <NewsCard key={`religion-${index}`} title={item.title} description={item.description} />
+        {news.slice(3, 7).map((item, index) => (
+          <NewsCard key={index} title={item.title} description={item.description}date={item.date} views={item.views} />
         ))}
       </ div>
 
       {/* Сұхбат */}
       <h2 className="text-2xl font-bold mb-6">Сұхбат</ h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-10">
-        {news.slice(0, 4).map((item, index) => (
-          <NewsCard key={`interview-${index}`} title={item.title} description={item.description} />
+        {news.slice(3, 7).map((item, index) => (
+          <NewsCard key={index} title={item.title} description={item.description}date={item.date} views={item.views} />
         ))}
       </ div>
 
       {/* Сараптама */}
       <h2 className="text-2xl font-bold mb-6">Сараптама</ h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {news.slice(0, 4).map((item, index) => (
-          <NewsCard key={`analytics-${index}`} title={item.title} description={item.description} />
+        {news.slice(3, 7).map((item, index) => (
+          <NewsCard key={index} title={item.title} description={item.description}date={item.date} views={item.views} />
         ))}
       </ div>
 
