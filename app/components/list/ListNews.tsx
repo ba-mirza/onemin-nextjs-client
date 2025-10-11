@@ -1,3 +1,5 @@
+import NewsCard from "@/app/components/NewsCard"
+
 interface NewsItem {
   title: string
   description: string
@@ -11,17 +13,9 @@ interface ListNewsProps {
 
 export default function ListNews({ news }: ListNewsProps) {
   return (
-    <div className="space-y-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       {news.map((item, i) => (
-        <div
-          key={i}
-          className="bg-white shadow rounded-lg p-6 hover:shadow-lg transition">
-          <h2 className="text-xl font-bold mb-2">{item.title}</ h2>
-          <p className="text-gray-600 mb-2">{item.description}</ p>
-          <div className="text-sm text-gray-500">
-            {item.date} • {item.views} қаралым
-          </ div>
-        </ div>
+        <NewsCard key={i} {...item} /> 
       ))}
     </ div>
   )
