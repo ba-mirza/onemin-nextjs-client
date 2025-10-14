@@ -8,9 +8,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "var(--color-primary)",
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        primary: "var(--color-primary, #B80000)",
+        background: "var(--background, #ffffff)",
+        foreground: "var(--foreground, #171717)",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "sans-serif"],
