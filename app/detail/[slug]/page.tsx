@@ -1,29 +1,28 @@
-import { notFound } from "next/navigation"
-import ArticleHeader from "@/app/components/details/ArticleHeader"
-import ArticleContent from "@/app/components/details/ArticleContent"
-import ArticleComments from "@/app/components/details/ArticleComments"
+import ArticleComments from "@/components/details/ArticleComments";
+import ArticleContent from "@/components/details/ArticleContent";
+import ArticleHeader from "@/components/details/ArticleHeader";
+import { notFound } from "next/navigation";
 
 interface NewsDetailProps {
   params: {
-    slug: string
-  }
+    slug: string;
+  };
 }
 
 export default function NewsDetail({ params }: NewsDetailProps) {
-
   const article = {
     title: "Казино жарнамалаған блогерлерге қылмыстық іс қозғала ма?",
     date: "27.08.2025",
     views: 5931,
     tags: ["казино", "ставка", "блогер", "тағзир"],
     content: `
-      Онлайн казиноларды жарнамалағаны үшін танымал блогерлер Қайсар Қамза мен 
-      Никонет заң алдында жауап беруі мүмкін. Экономист әрі сарапшы Айбар Олжайдың 
-      жазбасына қарағанда, бұл жолы әкімшілік жаза емес, қылмыстық жауапкершілік 
+      Онлайн казиноларды жарнамалағаны үшін танымал блогерлер Қайсар Қамза мен
+      Никонет заң алдында жауап беруі мүмкін. Экономист әрі сарапшы Айбар Олжайдың
+      жазбасына қарағанда, бұл жолы әкімшілік жаза емес, қылмыстық жауапкершілік
       мәселесі көтеріліп отыр.
-      
+
       Олжайдың айтуынша, Қайсар Қамза онлайн құмар ойындарына тіркелу жолдарын егжей-
-      тегжейлі көрсеткен. Бұл әрекет мемлекет тарапынан қатаң бақылауға алынып, блогердің 
+      тегжейлі көрсеткен. Бұл әрекет мемлекет тарапынан қатаң бақылауға алынып, блогердің
       барлық қаржылық шоттары бұғатталған.
     `,
     comments: [
@@ -33,9 +32,9 @@ export default function NewsDetail({ params }: NewsDetailProps) {
       "Кейбір блогерлер әлі күнге дейін жарнама жасап жүр, мысалы Ақбота",
       "Қайсар шетелде болса, экстрадиция жасала ма?",
     ],
-  }
+  };
 
-  if (!article) return notFound()
+  if (!article) return notFound();
 
   return (
     <article className="max-w-3xl mx-auto px-4 py-10 font-sans">
@@ -47,6 +46,6 @@ export default function NewsDetail({ params }: NewsDetailProps) {
       />
       <ArticleContent content={article.content} />
       <ArticleComments comments={article.comments} />
-    </ article>
-  )
+    </article>
+  );
 }

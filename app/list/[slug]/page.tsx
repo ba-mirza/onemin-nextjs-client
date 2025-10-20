@@ -1,14 +1,14 @@
-import Breadcrumbs from "@/app/components/list/Breadcrumbs"
-import ListHeader from "@/app/components/list/ListHeader"
-import ListNews from "@/app/components/list/ListNews"
+import Breadcrumbs from "@/components/list/Breadcrumbs";
+import ListHeader from "@/components/list/ListHeader";
+import ListNews from "@/components/list/ListNews";
 
 interface ListPageProps {
-  params: { slug: string }
+  params: { slug: string };
 }
 
 export default function ListPage({ params }: ListPageProps) {
   const listTitle =
-    params.slug === "sayasat" ? "Саясат" : params.slug.toUpperCase()
+    params.slug === "sayasat" ? "Саясат" : params.slug.toUpperCase();
 
   const news = [
     {
@@ -19,7 +19,8 @@ export default function ListPage({ params }: ListPageProps) {
       views: 5931,
     },
     {
-      title: "Назарбаевтың Конституция қабылдау ісіндегі рөліне әділ баға берілуі тиіс – Тоқаев",
+      title:
+        "Назарбаевтың Конституция қабылдау ісіндегі рөліне әділ баға берілуі тиіс – Тоқаев",
       description:
         "29 тамыз күні ҚР Конституциясының 30 жылдығына арналған конференция...",
       date: "27.08.2025",
@@ -33,19 +34,22 @@ export default function ListPage({ params }: ListPageProps) {
       views: 5931,
     },
     {
-      title: "Қытай Қазақстанға 7,5 млрд теңге көлемінде қаржылай қолдау көрсетпек",
+      title:
+        "Қытай Қазақстанға 7,5 млрд теңге көлемінде қаржылай қолдау көрсетпек",
       description:
         "Қытай Қазақстанға қазіргі бағам бойынша 100 миллион юань бөлмек.",
       date: "27.08.2025",
       views: 5931,
     },
-  ]
+  ];
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10 font-sans">
-      <Breadcrumbs items={[{ label: "Басты бет", href: "/" }, { label: listTitle }]} />
+      <Breadcrumbs
+        items={[{ label: "Басты бет", href: "/" }, { label: listTitle }]}
+      />
       <ListHeader title={listTitle} />
       <ListNews news={news} />
-    </ div>
-  )
+    </div>
+  );
 }

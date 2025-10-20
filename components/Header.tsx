@@ -4,18 +4,17 @@ const navItems = [
   { label: "ДІН", href: "/list/din" },
   { label: "СҰХБАТ", href: "/list/suhbat" },
   { label: "САРАПТАМА", href: "/list/saraptama" },
-]
+];
 
 export default function Header() {
   return (
     <header className="bg-primary text-white py-4">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-4">
         <div className="flex items-center space-x-4">
-          <h1 className="text-2xl font-bold">ONEMIN.KZ</ h1>
-          <div className="h-6 w-px bg-white/50"></ div>
-        </ div>
+          <h1 className="text-2xl font-bold">ONEMIN.KZ</h1>
+          <div className="h-6 w-px bg-white/50"></div>
+        </div>
 
-        
         <nav className="flex space-x-6">
           {navItems.map((item) => (
             <a
@@ -24,11 +23,11 @@ export default function Header() {
               className="hover:text-gray-200 transition-colors"
             >
               {item.label}
-            </ a>
+            </a>
           ))}
-        </ nav>
+        </nav>
 
-          <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2">
           <input
             type="text"
             placeholder="Іздеу..."
@@ -36,10 +35,9 @@ export default function Header() {
           />
           <button className="bg-black text-white px-3 py-1 rounded hover:bg-gray-800 transition">
             RU
-          </ button>
-        </ div>
-      </ div>
-    </ header>
-  )
+          </button>
+        </div>
+      </div>
+    </header>
+  );
 }
-
