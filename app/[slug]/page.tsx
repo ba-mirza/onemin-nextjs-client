@@ -7,8 +7,7 @@ interface ListPageProps {
 }
 
 export default function ListPage({ params }: ListPageProps) {
-  const listTitle =
-    params.slug === "sayasat" ? "Саясат" : params.slug.toUpperCase();
+  const listTitle = params.slug === "sayasat" ? "Саясат" : "";
 
   const news = [
     {

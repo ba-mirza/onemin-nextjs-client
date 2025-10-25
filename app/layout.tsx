@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="kk">
       <body className={`${robotoCondensed.variable} antialiased`}>
         <Header />
-        <main className="max-w-6xl mx-auto px-4 py-10">{children}</main>
+        <main className="section">{children}</main>
         <Footer />
       </body>
     </html>

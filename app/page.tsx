@@ -1,5 +1,9 @@
 import NewsCard from "@/components/NewsCard";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import { navigations } from "@/constants";
+import Image from "next/image";
+import { Fragment } from "react";
 
 export default function Home() {
   const news = [
@@ -61,30 +65,53 @@ export default function Home() {
     },
   ];
 
+  const tags = Array.from({ length: 10 }).map(
+    (_, i, a) => `v1.2.0-beta.${a.length - i}`,
+  );
+
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        <div className="md:col-span-2 bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition">
-          <h1 className="text-3xl font-bold mb-4 leading-snug">
-            {news[0].title}
-          </h1>
-          <p className="text-gray-700 text-base leading-relaxed">
-            {news[0].description}
-          </p>
+      <section className="flex justify-between h-[665px] gap-6">
+        <div className="flex flex-col gap-4 w-3/5">
+          <div className="bg-[#E5E7EB] w-auto h-[350px] border border-gray-500 rounded-lg">
+            <h1>text</h1>
+          </div>
+          <div className="flex items-center justify-between gap-4">
+            {news.slice(0, 2).map((item, index) => (
+              <div
+                className="w-auto h-[300px] bg-[#E5E7EB] border border-gray-500 rounded-lg"
+                key={index}
+              >
+                <h2>{item.title}</h2>
+                <p>{item.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
-
-        <div className="space-y-6">
-          {news.slice(1, 3).map(({ title, description }, i) => (
-            <div
-              key={i}
-              className="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition"
-            >
-              <h2 className="text-lg font-semibold mb-2">{title}</h2>
-              <p className="text-gray-600 text-sm">{description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+        <ScrollArea className="h-auto w-[433px] rounded-md border">
+          <div className="p-3">
+            <h4 className="mb-3 text-lg leading-none font-medium">
+              Последние новости
+            </h4>
+            {tags.map((tag) => (
+              <Fragment key={tag}>
+                <div className="flex items-center gap-4 text-lg">
+                  <Image
+                    className="rounded-lg m-2"
+                    src="placehd.svg"
+                    alt="placehd"
+                    width={90}
+                    height={90}
+                    loading="lazy"
+                  />
+                  <div>{tag}</div>
+                </div>
+                <Separator className="my-2" />
+              </Fragment>
+            ))}
+          </div>
+        </ScrollArea>
+      </section>
 
       {navigations.map((nav, idx) => (
         <section key={idx} className="mb-10">
