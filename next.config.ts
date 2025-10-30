@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -22,6 +23,9 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "3mb",
     },
   },
+  reactStrictMode: true,
+  output: "export",
+  trailingSlash: true,
 };
 
 export default nextConfig;
