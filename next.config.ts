@@ -24,7 +24,7 @@ const nextConfig: NextConfig = {
     },
   },
   reactStrictMode: true,
-  output: "export",
+  // output: "export",
   trailingSlash: true,
 };
 

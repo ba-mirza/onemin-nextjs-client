@@ -14,8 +14,6 @@ interface ArticlePageProps {
   }>;
 }
 
-export const dynamic = "force-dynamic";
-
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { category, slug } = await params;
   const result = await getArticleBySlug(slug);

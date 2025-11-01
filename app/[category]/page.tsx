@@ -8,8 +8,6 @@ interface CategoryPageProps {
   params: Promise<{ category: string }>;
 }
 
-export const dynamic = "force-dynamic";
-
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { category } = await params;
   const categoryData = navigations.find((nav) => nav.slug === category);
