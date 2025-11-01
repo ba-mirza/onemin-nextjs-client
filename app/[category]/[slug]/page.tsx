@@ -2,6 +2,10 @@ import { notFound, redirect } from "next/navigation";
 import { getArticleBySlug } from "@/lib/supabase/actions/article.action";
 import Image from "next/image";
 import { tiptapToHtml } from "@/lib/tiptap-to-html";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { CalendarDays, Eye } from "lucide-react";
 
 interface ArticlePageProps {
   params: Promise<{
@@ -36,51 +40,57 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   return (
     <article className="max-w-4xl mx-auto px-4 py-10">
+      <h1 className="text-4xl font-bold mb-4 uppercase">{article.title}</h1>
+
+      <div className="flex justify-start gap-4 font-semibold text-md text-muted-foreground mt-4">
+        <span className="flex gap-2 items-center">
+          <CalendarDays />
+          {new Date(article.published_at).toLocaleDateString("ru-RU")}
+        </span>
+        <span className="flex gap-2 items-center">
+          <Eye />
+          {displayedViews.toLocaleString("ru-RU")} просмотров
+        </span>
+      </div>
+
       {article.preview_image && (
-        <div className="relative w-full h-[400px] mb-8">
+        <div className="mb-8 mt-3">
           <Image
             src={article.preview_image}
             alt={article.title}
-            fill
+            width={867}
+            height={455}
             className="object-cover rounded-lg"
             priority
           />
         </div>
       )}
 
-      <h1 className="text-4xl font-bold mb-4">{article.title}</h1>
-
-      <div className="flex gap-4 text-sm text-muted-foreground mb-8">
-        <span>
-          {new Date(article.published_at).toLocaleDateString("ru-RU")}
-        </span>
-        <span>•</span>
-        <span>{displayedViews.toLocaleString("ru-RU")} просмотров</span>
-        <span>•</span>
-        <span>{article.category.name}</span>
-      </div>
-
       {article.excerpt && (
         <p className="text-xl text-muted-foreground mb-8">{article.excerpt}</p>
       )}
 
       <div
-        className="prose prose-lg max-w-none"
+        className="prose prose-lg max-w-none text-xl"
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
 
       {article.tags.length > 0 && (
         <div className="mt-8 flex flex-wrap gap-2">
+          <Separator orientation="horizontal" />
           {article.tags.map((tag) => (
-            <span
+            <Badge
               key={tag.id}
-              className="px-3 py-1 bg-muted rounded-full text-sm"
+              className="bg-[#C53F3F] text-white text-md select-none mt-4"
             >
               {tag.name}
-            </span>
+            </Badge>
           ))}
         </div>
       )}
+      <Button className="text-md bg-[#202020] text-white uppercase py-2 px-4 mt-3 font-bold cursor-pointer">
+        Поделиться
+      </Button>
     </article>
   );
 }
