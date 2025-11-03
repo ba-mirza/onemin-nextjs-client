@@ -7,6 +7,43 @@ import {
   errorResponse,
   successResponse,
 } from "../types/api.response";
+import { Article } from "../types/props";
+
+export async function getAllArticles(): Promise<ApiResponse<Article[]>> {
+  try {
+    const supabase = createSupabaseClient();
+    const lang = await getLanguage();
+
+    const { data: articles, error: articleError } = await supabase
+      .from("articles")
+      .select(
+        `
+        id,
+        title,
+        slug,
+        excerpt,
+        preview_image,
+        published_at,
+        category:categories(id, name, slug),
+        stats:article_stats(views_count)
+      `,
+      )
+      .eq("lang", lang)
+      .eq("is_published", true)
+      .order("published_at", { ascending: false });
+
+    if (articleError) {
+      return errorResponse(
+        `Ошибка получения статей: ${articleError}`,
+        "DATABASE_ERROR from getAllArticles()",
+      );
+    }
+
+    return successResponse(articles);
+  } catch (error) {
+    return errorResponse(`Ошибка получения статей: ${error}`, "DATABASE_ERROR");
+  }
+}
 
 export async function getArticlesByCategory(
   categorySlug: string,

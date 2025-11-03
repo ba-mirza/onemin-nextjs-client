@@ -2,10 +2,10 @@ import { FaRegClock, FaRegEye } from "react-icons/fa";
 
 interface NewsCardProps {
   title: string;
-  description: string;
+  description: string | null;
   image?: string;
   href?: string;
-  date?: string;
+  date: string | null;
   views?: number;
 }
 
