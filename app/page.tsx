@@ -1,7 +1,6 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { getAllArticles } from "@/lib/supabase/actions/article.action";
-import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
 
@@ -38,7 +37,7 @@ export default async function Home() {
                 key={item.id}
               >
                 <div
-                  className="flex w-auto h-[300px] border border-gray-500 rounded-lg p-4 hover:border-amber-500"
+                  className="flex w-auto h-[300px] border border-gray-500 rounded-lg p-4 hover:border-purple-700"
                   key={index}
                 >
                   <h2>{item.title}</h2>
@@ -49,22 +48,19 @@ export default async function Home() {
           </div>
         </div>
         <ScrollArea className="h-auto w-[433px] rounded-md border">
-          <div className="p-3">
-            <h4 className="mb-3 text-lg leading-none font-medium">
+          <div className="p-4">
+            <h4 className="mb-4 text-lg leading-none font-medium">
               Последние новости
             </h4>
-            {tags.map((tag) => (
-              <Fragment key={tag}>
+            {articles.map((article) => (
+              <Fragment key={article.id}>
                 <div className="flex items-center gap-4 text-lg">
-                  <Image
-                    className="rounded-lg m-2"
-                    src="placehd.svg"
-                    alt="placehd"
-                    width={90}
-                    height={90}
-                    loading="lazy"
-                  />
-                  <div>{tag}</div>
+                  <Link
+                    className="underline hover:text-purple-700"
+                    href={`/${article.category.slug}/${article.slug}`}
+                  >
+                    {article.title}
+                  </Link>
                 </div>
                 <Separator className="my-2" />
               </Fragment>
