@@ -4,36 +4,10 @@ import { navigations } from "@/constants";
 import Link from "next/link";
 import { Input } from "./ui/input";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 
-type Lang = "ru" | "kz";
-
-export default function Header() {
-  const [lang, setLang] = useState<Lang>("kz");
+export default function Header({ children }: { children: React.ReactNode }) {
   const { slug } = useParams();
-
-  const defineLang = (value: Lang) => {
-    setLang(value);
-  };
-
-  // #FIX: Initialize lang state with localStorage value
-  useEffect(() => {
-    const existingLang = localStorage.getItem("lang");
-    if (!existingLang) {
-      localStorage.setItem("lang", lang as Lang);
-      setLang(existingLang as Lang);
-    } else {
-      localStorage.removeItem("lang");
-    }
-  }, [lang]);
 
   return (
     <header className="bg-primary text-white py-4">
@@ -59,23 +33,11 @@ export default function Header() {
 
         <div className="flex gap-2">
           <Input
-            className="placeholder:text-black border-black bg-white"
+            className="placeholder:text-white"
             type="text"
             placeholder="Іздеу"
           />
-          <Select onValueChange={defineLang}>
-            <SelectTrigger className="w-[70px]">
-              <SelectValue placeholder={lang} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="ru">
-                <span className="fi fi-ru">RU</span>
-              </SelectItem>
-              <SelectItem value="kz">
-                <span className="fi fi-kz">KZ</span>
-              </SelectItem>
-            </SelectContent>
-          </Select>
+          {children}
         </div>
       </div>
     </header>

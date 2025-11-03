@@ -38,7 +38,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               href={`/${category}/${article.slug}`}
               className="block border rounded-lg p-6 hover:shadow-lg transition"
             >
-              <h2 className="text-2xl font-bold mb-2">{article.title}</h2>
+              <h2 className="text-2xl font-bold mb-2 underline">
+                {article.title}
+              </h2>
               {article.excerpt && (
                 <p className="text-muted-foreground mb-4">{article.excerpt}</p>
               )}
@@ -46,7 +48,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 <span>
                   {new Date(article.published_at).toLocaleDateString("ru-RU")}
                 </span>
-                <span>•</span>
                 <span>{article.views_count} просмотров</span>
               </div>
             </Link>

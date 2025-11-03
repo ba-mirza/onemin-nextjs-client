@@ -1,5 +1,6 @@
 "use server";
 
+import { getLanguage } from "@/lib/actions/language";
 import { createSupabaseClient } from "..";
 import {
   ApiResponse,
@@ -12,6 +13,8 @@ export async function getArticlesByCategory(
 ): Promise<ApiResponse<any[]>> {
   try {
     const supabase = createSupabaseClient();
+    const lang = await getLanguage();
+
     const { data: category, error: categoryError } = await supabase
       .from("categories")
       .select("id")
@@ -38,6 +41,7 @@ export async function getArticlesByCategory(
       )
       .eq("category.id", category.id)
       .eq("is_published", true)
+      .eq("lang", lang)
       .order("published_at", { ascending: false });
 
     if (error) {
@@ -69,6 +73,8 @@ export async function getArticleBySlug(
 ): Promise<ApiResponse<any>> {
   try {
     const supabase = createSupabaseClient();
+    const lang = await getLanguage();
+
     const { data: article, error } = await supabase
       .from("articles")
       .select(
@@ -91,6 +97,7 @@ export async function getArticleBySlug(
       )
       .eq("slug", slug)
       .eq("is_published", true)
+      .eq("lang", lang)
       .single();
 
     if (error || !article) {

@@ -3,10 +3,12 @@ import { Roboto_Condensed } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { getLanguage } from "@/lib/actions/language";
+import { LanguageSwitcher } from "@/components/language-switcher";
 
 const robotoCondensed = Roboto_Condensed({
   variable: "--font-sans",
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   weight: ["400", "700"],
 });
 
@@ -16,15 +18,18 @@ export const metadata: Metadata = {
     "Свежие новости Казахстана: политика, экономика, спорт, культура.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const currentLang = await getLanguage();
   return (
-    <html lang="kk">
+    <html lang={currentLang}>
       <body className={`${robotoCondensed.variable} antialiased`}>
-        <Header />
+        <Header>
+          <LanguageSwitcher currentLang={currentLang} />
+        </Header>
         <main className="section">{children}</main>
         <Footer />
       </body>
