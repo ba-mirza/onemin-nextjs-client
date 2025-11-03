@@ -18,10 +18,6 @@ export default async function Home() {
 
   const articles = result.data;
 
-  const tags = Array.from({ length: 10 }).map(
-    (_, i, a) => `v1.2.0-beta.${a.length - i}`,
-  );
-
   return (
     <>
       <section className="flex justify-between h-[665px] gap-6">
