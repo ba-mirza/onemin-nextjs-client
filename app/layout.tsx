@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto_Condensed } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { getLanguage } from "@/lib/actions/language";
-import { LanguageSwitcher } from "@/components/language-switcher";
 
 const robotoCondensed = Roboto_Condensed({
   variable: "--font-sans",
@@ -23,15 +19,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const currentLang = await getLanguage();
   return (
-    <html lang={currentLang}>
+    <html lang="kz">
       <body className={`${robotoCondensed.variable} antialiased`}>
-        <Header>
-          <LanguageSwitcher currentLang={currentLang} />
-        </Header>
-        <main className="section">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

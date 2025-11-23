@@ -1,12 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const lang = request.cookies.get("lang")?.value || "kz";
+  const { pathname } = request.nextUrl;
 
-  const response = NextResponse.next();
-  response.headers.set("x-lang", lang);
+  // Redirect root to /kz
+  if (pathname === "/") {
+    return NextResponse.redirect(new URL("/kz", request.url));
+  }
 
-  return response;
+  // Check if pathname starts with /kz or /ru
+  const pathnameHasLocale = pathname.startsWith("/kz") || pathname.startsWith("/ru");
+
+  if (!pathnameHasLocale) {
+    // Redirect to /kz if no locale is present
+    return NextResponse.redirect(new URL(`/kz${pathname}`, request.url));
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
@@ -18,6 +28,6 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.).*)",
   ],
 };

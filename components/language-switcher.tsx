@@ -9,8 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useRouter } from "next/navigation";
-import { setLanguage } from "@/lib/actions/language";
+import { useRouter, usePathname } from "next/navigation";
 
 interface LanguageSwitcherProps {
   currentLang: "ru" | "kz";
@@ -18,15 +17,17 @@ interface LanguageSwitcherProps {
 
 export function LanguageSwitcher({ currentLang }: LanguageSwitcherProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
   const [lang, setLang] = useState<"ru" | "kz">(currentLang);
 
   const handleChange = (value: "ru" | "kz") => {
     setLang(value);
 
-    startTransition(async () => {
-      await setLanguage(value);
-      router.refresh();
+    startTransition(() => {
+      // Replace current language in pathname with new one
+      const newPathname = pathname.replace(/^\/(kz|ru)/, `/${value}`);
+      router.push(newPathname);
     });
   };
 

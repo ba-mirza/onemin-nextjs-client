@@ -3,20 +3,74 @@ import Link from "next/link";
 import { Article } from "@/lib/supabase/types/props";
 import { navigations } from "@/constants";
 import { getArticlesByCategory } from "@/lib/supabase/actions/article.action";
+import { Metadata } from "next";
 
 interface CategoryPageProps {
-  params: Promise<{ category: string }>;
+  params: Promise<{ category: string; lang: "ru" | "kz" }>;
+}
+
+export async function generateMetadata({
+  params,
+}: CategoryPageProps): Promise<Metadata> {
+  const { category, lang } = await params;
+
+  const categoryData = navigations.find((nav) => nav.slug === category);
+
+  if (!categoryData) {
+    return {};
+  }
+
+  const title = `${categoryData.title} – ONEMIN.KZ`;
+  const description =
+    lang === "kz"
+      ? `${categoryData.title} бойынша соңғы жаңалықтар мен сараптама`
+      : `Последние новости и аналитика по теме ${categoryData.title}`;
+  const url = `https://oneminute.kz/${lang}/${category}`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: url,
+      languages: {
+        kz: `https://oneminute.kz/kz/${category}`,
+        ru: `https://oneminute.kz/ru/${category}`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: "ONEMIN.KZ",
+      locale: lang === "kz" ? "kk_KZ" : "ru_RU",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  const { category } = await params;
+  const { category, lang } = await params;
+
+  if (lang !== "ru" && lang !== "kz") {
+    notFound();
+  }
+
   const categoryData = navigations.find((nav) => nav.slug === category);
 
   if (!categoryData) {
     notFound();
   }
 
-  const result = await getArticlesByCategory(category);
+  const result = await getArticlesByCategory(category, lang);
 
   if (result.status !== "success") {
     return <div>Ошибка загрузки статей</div>;
@@ -35,7 +89,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           {articles.map((article: Article) => (
             <Link
               key={article.id}
-              href={`/${category}/${article.slug}`}
+              href={`/${lang}/${category}/${article.slug}`}
               className="block border rounded-lg p-6 hover:shadow-lg transition"
             >
               <h2 className="text-2xl font-bold mb-2 underline">
@@ -59,7 +113,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 }
 
 export async function generateStaticParams() {
-  return navigations.map((nav) => ({
-    category: nav.slug,
-  }));
+  const params = [];
+  for (const nav of navigations) {
+    params.push({ category: nav.slug, lang: "kz" as const });
+    params.push({ category: nav.slug, lang: "ru" as const });
+  }
+  return params;
 }

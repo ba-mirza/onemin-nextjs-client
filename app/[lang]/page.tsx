@@ -3,9 +3,74 @@ import { Separator } from "@/components/ui/separator";
 import { getAllArticles } from "@/lib/supabase/actions/article.action";
 import Link from "next/link";
 import { Fragment } from "react";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
-export default async function Home() {
-  const result = await getAllArticles();
+interface HomePageProps {
+  params: Promise<{ lang: "ru" | "kz" }>;
+}
+
+export async function generateMetadata({
+  params,
+}: HomePageProps): Promise<Metadata> {
+  const { lang } = await params;
+
+  const titles = {
+    kz: "ONEMIN.KZ – Қазақстанның жаңалықтары",
+    ru: "ONEMIN.KZ – Новости Казахстана",
+  };
+
+  const descriptions = {
+    kz: "Қазақстанның соңғы жаңалықтары: саясат, экономика, спорт, мәдениет",
+    ru: "Свежие новости Казахстана: политика, экономика, спорт, культура",
+  };
+
+  const title = titles[lang];
+  const description = descriptions[lang];
+  const url = `https://oneminute.kz/${lang}`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: url,
+      languages: {
+        kz: "https://oneminute.kz/kz",
+        ru: "https://oneminute.kz/ru",
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: "ONEMIN.KZ",
+      locale: lang === "kz" ? "kk_KZ" : "ru_RU",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+      },
+    },
+  };
+}
+
+export default async function Home({ params }: HomePageProps) {
+  const { lang } = await params;
+
+  if (lang !== "ru" && lang !== "kz") {
+    notFound();
+  }
+
+  const result = await getAllArticles(lang);
 
   if (result.status !== "success") {
     return (
@@ -29,7 +94,7 @@ export default async function Home() {
             {articles.slice(1, 3).map((item, index) => (
               <Link
                 className="select-none"
-                href={`/${item.category.slug}/${item.slug}`}
+                href={`/${lang}/${item.category.slug}/${item.slug}`}
                 key={item.id}
               >
                 <div
@@ -53,7 +118,7 @@ export default async function Home() {
                 <div className="flex items-center gap-4 text-lg">
                   <Link
                     className="underline hover:text-purple-700"
-                    href={`/${article.category.slug}/${article.slug}`}
+                    href={`/${lang}/${article.category.slug}/${article.slug}`}
                   >
                     {article.title}
                   </Link>
@@ -66,4 +131,8 @@ export default async function Home() {
       </section>
     </>
   );
+}
+
+export async function generateStaticParams() {
+  return [{ lang: "kz" }, { lang: "ru" }];
 }

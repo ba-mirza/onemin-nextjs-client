@@ -1,6 +1,5 @@
 "use server";
 
-import { getLanguage } from "@/lib/actions/language";
 import { createSupabaseClient } from "..";
 import {
   ApiResponse,
@@ -9,10 +8,11 @@ import {
 } from "../types/api.response";
 import { Article } from "../types/props";
 
-export async function getAllArticles(): Promise<ApiResponse<Article[]>> {
+export async function getAllArticles(
+  lang: "ru" | "kz",
+): Promise<ApiResponse<Article[]>> {
   try {
     const supabase = createSupabaseClient();
-    const lang = await getLanguage();
 
     const { data: articles, error: articleError } = await supabase
       .from("articles")
@@ -47,10 +47,10 @@ export async function getAllArticles(): Promise<ApiResponse<Article[]>> {
 
 export async function getArticlesByCategory(
   categorySlug: string,
+  lang: "ru" | "kz",
 ): Promise<ApiResponse<any[]>> {
   try {
     const supabase = createSupabaseClient();
-    const lang = await getLanguage();
 
     const { data: category, error: categoryError } = await supabase
       .from("categories")
@@ -107,10 +107,10 @@ export async function getArticlesByCategory(
 
 export async function getArticleBySlug(
   slug: string,
+  lang: "ru" | "kz",
 ): Promise<ApiResponse<any>> {
   try {
     const supabase = createSupabaseClient();
-    const lang = await getLanguage();
 
     const { data: article, error } = await supabase
       .from("articles")
@@ -152,6 +152,58 @@ export async function getArticleBySlug(
     return successResponse(articleWithDetails);
   } catch (error) {
     console.error("Error fetching article:", error);
+    return errorResponse(
+      error instanceof Error ? error.message : "Неизвестная ошибка",
+      "INTERNAL_ERROR",
+    );
+  }
+}
+
+export async function incrementArticleViews(
+  articleId: string,
+): Promise<ApiResponse<void>> {
+  try {
+    const supabase = createSupabaseClient();
+
+    // First, check if stats record exists
+    const { data: existingStats } = await supabase
+      .from("article_stats")
+      .select("views_count")
+      .eq("article_id", articleId)
+      .single();
+
+    if (existingStats) {
+      // Update existing record
+      const { error } = await supabase
+        .from("article_stats")
+        .update({ views_count: existingStats.views_count + 1 })
+        .eq("article_id", articleId);
+
+      if (error) {
+        console.error("Error updating views:", error);
+        return errorResponse(
+          `Ошибка обновления просмотров: ${error.message}`,
+          "DATABASE_ERROR",
+        );
+      }
+    } else {
+      // Create new stats record
+      const { error } = await supabase
+        .from("article_stats")
+        .insert({ article_id: articleId, views_count: 1 });
+
+      if (error) {
+        console.error("Error creating stats:", error);
+        return errorResponse(
+          `Ошибка создания статистики: ${error.message}`,
+          "DATABASE_ERROR",
+        );
+      }
+    }
+
+    return successResponse(undefined);
+  } catch (error) {
+    console.error("Error incrementing article views:", error);
     return errorResponse(
       error instanceof Error ? error.message : "Неизвестная ошибка",
       "INTERNAL_ERROR",
