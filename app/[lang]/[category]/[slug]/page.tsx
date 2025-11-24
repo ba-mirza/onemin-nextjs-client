@@ -101,7 +101,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       ? article.views_count_custom
       : article.views_count;
 
-  // JSON-LD structured data for Google
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
@@ -136,52 +135,54 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <article className="max-w-4xl mx-auto px-4 py-10">
         <h1 className="text-4xl font-bold mb-4 uppercase">{article.title}</h1>
 
-      <div className="flex justify-start gap-4 font-semibold text-md text-muted-foreground mt-4">
-        <span className="flex gap-2 items-center">
-          <CalendarDays />
-          {new Date(article.published_at).toLocaleDateString("ru-RU")}
-        </span>
-        <span className="flex gap-2 items-center">
-          <Eye />
-          {displayedViews.toLocaleString("ru-RU")} просмотров
-        </span>
-      </div>
-
-      {article.preview_image && (
-        <div className="mb-8 mt-3">
-          <Image
-            src={article.preview_image}
-            alt={article.title}
-            width={867}
-            height={455}
-            className="object-cover rounded-lg"
-            priority
-          />
+        <div className="flex justify-start gap-4 font-semibold text-md text-muted-foreground mt-4">
+          <span className="flex gap-2 items-center">
+            <CalendarDays />
+            {new Date(article.published_at).toLocaleDateString("ru-RU")}
+          </span>
+          <span className="flex gap-2 items-center">
+            <Eye />
+            {displayedViews.toLocaleString("ru-RU")} просмотров
+          </span>
         </div>
-      )}
 
-      {article.excerpt && (
-        <p className="text-xl text-muted-foreground mb-8">{article.excerpt}</p>
-      )}
+        {article.preview_image && (
+          <div className="mb-8 mt-3">
+            <Image
+              src={article.preview_image}
+              alt={article.title}
+              width={867}
+              height={455}
+              className="object-cover rounded-lg"
+              priority
+            />
+          </div>
+        )}
 
-      <div
-        className="prose prose-lg max-w-none text-xl"
-        dangerouslySetInnerHTML={{ __html: htmlContent }}
-      />
+        {article.excerpt && (
+          <p className="text-xl text-muted-foreground mb-8">
+            {article.excerpt}
+          </p>
+        )}
 
-      {article.tags.length > 0 && (
-        <div className="mt-8 flex flex-wrap gap-2">
-          <Separator orientation="horizontal" />
-          {article.tags.map((tag) => (
-            <Badge
-              key={tag.id}
-              className="bg-[#C53F3F] text-white text-md select-none mt-4"
-            >
-              {tag.name}
-            </Badge>
-          ))}
-        </div>
-      )}
+        <div
+          className="prose prose-lg max-w-none text-xl"
+          dangerouslySetInnerHTML={{ __html: htmlContent }}
+        />
+
+        {article.tags.length > 0 && (
+          <div className="mt-8 flex flex-wrap gap-2">
+            <Separator orientation="horizontal" />
+            {article.tags.map((tag) => (
+              <Badge
+                key={tag.id}
+                className="bg-[#C53F3F] text-white text-md select-none mt-4"
+              >
+                {tag.name}
+              </Badge>
+            ))}
+          </div>
+        )}
         <Button className="text-md bg-[#202020] text-white uppercase py-2 px-4 mt-3 font-bold cursor-pointer">
           Поделиться
         </Button>

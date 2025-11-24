@@ -5,21 +5,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://oneminute.kz";
   const supabase = createSupabaseClient();
 
-  // Fetch all published articles for both languages
   const { data: articles } = await supabase
     .from("articles")
     .select("slug, category:categories(slug), updated_at, lang")
     .eq("is_published", true)
     .order("updated_at", { ascending: false });
 
-  const articleUrls: MetadataRoute.Sitemap = (articles || []).map((article) => ({
-    url: `${baseUrl}/${article.lang}/${article.category.slug}/${article.slug}`,
-    lastModified: new Date(article.updated_at),
-    changeFrequency: "daily",
-    priority: 0.8,
-  }));
+  const articleUrls: MetadataRoute.Sitemap = (articles || []).map(
+    (article) => ({
+      url: `${baseUrl}/${article.lang}/${article.category.slug}/${article.slug}`,
+      lastModified: new Date(article.updated_at),
+      changeFrequency: "daily",
+      priority: 0.8,
+    }),
+  );
 
-  // Get all categories
   const { data: categories } = await supabase.from("categories").select("slug");
 
   const categoryUrls: MetadataRoute.Sitemap = [];

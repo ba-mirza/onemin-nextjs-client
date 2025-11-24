@@ -9,7 +9,6 @@ interface ViewCounterProps {
 
 export function ViewCounter({ articleId }: ViewCounterProps) {
   useEffect(() => {
-    // Increment view count on component mount
     const incrementViews = async () => {
       await incrementArticleViews(articleId);
     };
@@ -17,5 +16,5 @@ export function ViewCounter({ articleId }: ViewCounterProps) {
     incrementViews();
   }, [articleId]);
 
-  return null; // This component doesn't render anything
+  return null;
 }
