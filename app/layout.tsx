@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Roboto_Condensed } from "next/font/google";
 import "./globals.css";
 
+import { Analytics } from "@vercel/analytics/react";
+
 const robotoCondensed = Roboto_Condensed({
   variable: "--font-sans",
   subsets: ["latin", "cyrillic"],
@@ -23,6 +25,7 @@ export default async function RootLayout({
     <html lang="kz">
       <body className={`${robotoCondensed.variable} antialiased`}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
