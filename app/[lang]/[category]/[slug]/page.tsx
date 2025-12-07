@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { CalendarDays, Eye } from "lucide-react";
 import { Metadata } from "next";
 import { ViewCounter } from "@/components/view-counter";
+import { ShareButton } from "@/components/share-button";
 
 interface ArticlePageProps {
   params: Promise<{
@@ -93,6 +94,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   if (article.category.slug !== category) {
     redirect(`/${lang}/${article.category.slug}/${slug}`);
   }
+
+  const articleUrl = `https://oneminute.kz/${lang}/${article.category.slug}/${slug}`;
 
   const htmlContent = tiptapToHtml(article.content);
 
@@ -183,9 +186,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             ))}
           </div>
         )}
-        <Button className="text-md bg-[#202020] text-white uppercase py-2 px-4 mt-3 font-bold cursor-pointer">
-          Поделиться
-        </Button>
+        <ShareButton url={articleUrl} title={article.title} />
       </article>
     </>
   );
