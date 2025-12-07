@@ -51,10 +51,11 @@ export default function Footer() {
         </p>
 
         <p className="max-w-3xl mx-auto text-gray-600 text-sm leading-relaxed mb-6">
-          БІЗ ЕЛІМІЗДЕ ЖӘНЕ ӘЛЕМДЕ БОЛЫП ЖАТҚАН МАҢЫЗДЫ ОҚИҒАЛАР ТУРАЛЫ ЖЕДЕЛ
-          ӘРІ СЕНІМДІ АҚПАРАТ ҰСЫНАМЫЗ.{" "}
-          <span className="font-semibold text-foreground">
-            САЯСАТ, ЭКОНОМИКА, ҚОҒАМ ЖӘНЕ МӘДЕНИЕТ
+          Oneminute.kz — Қазақстан мен шетелдегі маңызды оқиғалардан жедел түрде
+          хабар тарататын сайт.
+          <br />
+          <span className="uppercase font-semibold text-foreground">
+            Саясат, Әлем, Дін, Сұхбат және Сараптама
           </span>{" "}
           САЛАЛАРЫНДАҒЫ ӨЗЕКТІ ЖАҢАЛЫҚТАРДЫ БІЗДЕН ТАБА АЛАСЫЗ.
         </p>
@@ -72,7 +73,7 @@ export default function Footer() {
               className={`transition-colors ${
                 link.active
                   ? "text-primary"
-                  : "text-gray-800 hover:text-primary"
+                  : "text-gray-800 hover:text-primary hover:underline"
               }`}
             >
               {link.label}

@@ -11,9 +11,9 @@ const robotoCondensed = Roboto_Condensed({
 });
 
 export const metadata: Metadata = {
-  title: "ONEMIN.KZ – Новости Казахстана",
+  title: "ONEMIN.KZ – Қазақстан жаңалықтары",
   description:
-    "Свежие новости Казахстана: политика, экономика, спорт, культура.",
+    "Oneminute.kz — Қазақстан мен шетелдегі маңызды оқиғалардан жедел түрде хабар тарататын сайт",
 };
 
 export default async function RootLayout({
