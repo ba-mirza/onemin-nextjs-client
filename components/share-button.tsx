@@ -4,34 +4,19 @@ import { useState } from "react";
 
 interface ShareButtonProps {
   url: string;
-  title?: string;
 }
 
-export function ShareButton({ url, title }: ShareButtonProps) {
+export function ShareButton({ url }: ShareButtonProps) {
   const [copied, setCopied] = useState(false);
 
   const handleShare = async () => {
     try {
-      if (navigator.share) {
-        await navigator.share({
-          title: title,
-          url: url,
-        });
-      } else {
-        await navigator.clipboard.writeText(url);
-        setCopied(true);
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
 
-        setTimeout(() => setCopied(false), 2000);
-      }
+      setTimeout(() => setCopied(false), 2000);
     } catch (error) {
       console.error("Error sharing:", error);
-      try {
-        await navigator.clipboard.writeText(url);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      } catch (clipboardError) {
-        console.error("Clipboard error:", clipboardError);
-      }
     }
   };
 

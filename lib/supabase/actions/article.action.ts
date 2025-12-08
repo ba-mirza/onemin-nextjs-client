@@ -76,7 +76,7 @@ export async function getArticlesByCategory(
         stats:article_stats(views_count)
       `,
       )
-      .eq("category.id", category.id)
+      .eq("category_id", category.id)
       .eq("is_published", true)
       .eq("lang", lang)
       .order("published_at", { ascending: false });

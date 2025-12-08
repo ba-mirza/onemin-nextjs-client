@@ -4,8 +4,7 @@ import Image from "next/image";
 import { tiptapToHtml } from "@/lib/tiptap-to-html";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { CalendarDays, Eye } from "lucide-react";
+import { CalendarDays } from "lucide-react";
 import { Metadata } from "next";
 import { ViewCounter } from "@/components/view-counter";
 import { ShareButton } from "@/components/share-button";
@@ -143,10 +142,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <CalendarDays />
             {new Date(article.published_at).toLocaleDateString("ru-RU")}
           </span>
-          <span className="flex gap-2 items-center">
-            <Eye />
-            {displayedViews.toLocaleString("ru-RU")} просмотров
-          </span>
         </div>
 
         {article.preview_image && (
@@ -186,7 +181,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             ))}
           </div>
         )}
-        <ShareButton url={articleUrl} title={article.title} />
+        <ShareButton url={articleUrl} />
       </article>
     </>
   );

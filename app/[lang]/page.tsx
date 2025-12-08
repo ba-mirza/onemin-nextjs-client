@@ -3,8 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
-import { tiptapToHtml } from "@/lib/tiptap-to-html";
 import { timeAgo } from "@/lib/timeAgo";
 
 interface HomePageProps {
@@ -22,8 +20,8 @@ export async function generateMetadata({
   };
 
   const descriptions = {
-    kz: "Қазақстанның соңғы жаңалықтары: саясат, экономика, спорт, мәдениет",
-    ru: "Свежие новости Казахстана: политика, экономика, спорт, культура",
+    kz: "Қазақстан мен шетелдегі маңызды оқиғалардан жедел түрде хабар тарататын сайт",
+    ru: "Сайт, предоставляющий мгновенные новости о важных событиях в Казахстане и за рубежом",
   };
 
   const title = titles[lang];

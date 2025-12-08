@@ -90,9 +90,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             <Link
               key={article.id}
               href={`/${lang}/${category}/${article.slug}`}
-              className="block border rounded-lg p-6 hover:shadow-lg transition"
+              className="hover:text-blue-700 block border rounded-lg p-6 hover:shadow-lg transition"
             >
-              <h2 className="text-2xl font-bold mb-2 underline">
+              <h2 className="text-2xl font-bold mb-2 hover:underline">
                 {article.title}
               </h2>
               {article.excerpt && (
@@ -102,7 +102,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 <span>
                   {new Date(article.published_at).toLocaleDateString("ru-RU")}
                 </span>
-                <span>{article.views_count} просмотров</span>
               </div>
             </Link>
           ))}
