@@ -1,7 +1,5 @@
 import type { NextConfig } from "next";
 
-const isMobileBuild = process.env.NEXT_PUBLIC_MOBILE === "true";
-
 const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
@@ -20,16 +18,12 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  experimental: isMobileBuild
-    ? undefined
-    : {
-        serverActions: {
-          bodySizeLimit: "3mb",
-        },
-      },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "3mb",
+    },
+  },
   reactStrictMode: true,
-  output: isMobileBuild ? "export" : undefined,
-  trailingSlash: isMobileBuild ? true : false,
 };
 
 export default nextConfig;

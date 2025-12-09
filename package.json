@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "build:mobile": "cross-env NEXT_PUBLIC_MOBILE=true next build",
     "start": "next start",
     "lint": "eslint"
   },
